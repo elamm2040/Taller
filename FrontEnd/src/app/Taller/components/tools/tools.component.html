@@ -1,0 +1,107 @@
+<app-loading *ngIf="loading"></app-loading>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body">
+
+        <form [formGroup]="formTool" (ngSubmit)="saveTool()">
+          <div class="form-group">
+            <label for="name">Nombre</label>
+            <input type="text"
+                   class="form-control"
+                   id="name"
+                   formControlName="name"
+                   [ngClass]="['form-control', formTool.controls['name'].invalid ? ((formTool.controls['name'].dirty || formTool.controls['name'].touched) ? 'is-invalid' : '') : 'is-valid']">
+          </div>
+          <div class="form-group">
+            <label for="description">Descripción / Características</label>
+            <input type="text" class="form-control" id="description" formControlName="description">
+            <small id="descriptionHelp" class="form-text text-muted">Rasgos distintivos de la herramienta.</small>
+          </div>
+          <div class="row mb-3">
+            <div class="col-4">
+              <div class="form-group">
+                <label for="quantity">Cantidad</label>
+                <input type="number"
+                       min="1"
+                       class="form-control"
+                       id="quantity"
+                       formControlName="quantity"
+                       [ngClass]="['form-control', formTool.controls['quantity'].invalid ? ((formTool.controls['quantity'].dirty || formTool.controls['quantity'].touched) ? 'is-invalid' : '') : 'is-valid']">
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label for="mu">Unidad de Medida</label>
+                <select class="form-control" id="mu" formArrayName="muId" (change)="selectMU($event)">
+                  <option></option>
+                  <option *ngFor="let mu of allMus" [value]="mu.id">
+                    {{ mu.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-4">
+              <label for="cost">Costo</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input type="number" class="form-control" id="cost" formControlName="cost">
+              </div>
+              <small id="costHelp" class="form-text text-muted">Costo aproximado.</small>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-success btn-block" [disabled]="!formTool.valid">Guardar</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-body">
+
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col" sortable="name">Nombre</th>
+            <th scope="col" sortable="description">Descripción</th>
+            <th scope="col" sortable="quantity">Cantidad</th>
+            <th scope="col" sortable="cost">Costo /u</th>
+            <th scope="col" sortable="total">Total</th>
+            <th scope="col" sortable="actions">Acciones</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let tool of allTools">
+            <th scope="row">{{ tool.id }}</th>
+            <td>
+              <ngb-highlight [result]="tool.name"></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight [result]="tool.description"></ngb-highlight>
+            </td>
+            <td>{{ tool.quantity | number }}</td>
+            <td>$ {{ tool.cost | number }}</td>
+            <td>$ {{ tool.quantity * tool.cost | number }}</td>
+            <td>
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-primary">
+                  <fa-icon [icon]="faEdit"></fa-icon>
+                </button>
+                <button type="button" class="btn btn-danger">
+                  <fa-icon [icon]="faTrashAlt"></fa-icon>
+                </button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>

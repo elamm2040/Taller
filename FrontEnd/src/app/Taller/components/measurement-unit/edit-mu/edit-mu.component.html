@@ -1,0 +1,30 @@
+<ng-template #modalMU let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formMU">
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <input type="text"
+                 formControlName="name"
+                 [ngClass]="['form-control', formMU.controls['name'].invalid ? ((formMU.controls['name'].dirty || formMU.controls['name'].touched) ? 'is-invalid' : '') : 'is-valid']"
+                 placeholder="Abreviatura">
+        </div>
+        <div class="form-group col-md-8">
+          <input type="text"
+                 class="form-control"
+                 formControlName="description"
+                 placeholder="Descripción">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="saveMU()" [disabled]="!formMU.valid">Guardar</button>
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Cerrar</button>
+  </div>
+</ng-template>

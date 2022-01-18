@@ -1,0 +1,54 @@
+<div class="ui breadcrumb" *ngIf="subNivel" [innerHTML]="resHTML | safeHtml"></div>
+<hr *ngIf="subNivel">
+<form [formGroup]="formCat" (ngSubmit)="saveCat()">
+  <div class="row">
+    <div class="form-group form-check ml-3" *ngIf="subNivel">
+      <input type="checkbox"
+             class="form-check-input"
+             id="sublvl"
+             formControlName="sublvl"
+             (change)="subLvlChange($event)">
+      <label class="form-check-label" for="sublvl">Categoría en <b>subnivel</b></label>
+    </div>
+    <h5 class="ml-3 mb-3" *ngIf="!subNivel">Categoría</h5>
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text"><fa-icon [icon]="faHeading"></fa-icon></span>
+    </div>
+    <input type="text"
+           class="form-control"
+           placeholder="Nombre de la categoría"
+           formControlName="name">
+    <div class="input-group-append" *ngIf="subNivel">
+      <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="getCatName()">
+        <fa-icon [icon]="faPen"></fa-icon>
+      </button>
+    </div>
+  </div>
+  <div class="btn-group float-right" role="group" *ngIf="subNivel">
+    <button type="submit"
+            class="btn btn-success"
+            [disabled]="!formCat.valid">
+      Guardar
+    </button>
+    <button type="button"
+            class="btn btn-primary"
+            [disabled]="!formCat.valid || subLvl"
+            (click)="saveCat(true)">
+      Actualizar
+    </button>
+  </div>
+  <button type="submit"
+          class="btn btn-success float-right"
+          [disabled]="!formCat.valid"
+          *ngIf="!subNivel">
+    Guardar
+  </button>
+  <button type="button"
+          class="btn btn-secondary float-right mr-1"
+          *ngIf="subNivel"
+          (click)="canCat()">
+    Cancelar
+  </button>
+</form>
