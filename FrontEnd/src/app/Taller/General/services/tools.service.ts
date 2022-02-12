@@ -1,3 +1,4 @@
+import {environment} from "../../../../environments/environment";
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
@@ -12,18 +13,18 @@ export class ToolsService {
   }
 
   public getAllTools(): Observable<any> {
-    return this.http.get<any>('http://localhost:8000/api/tools/all');
+    return this.http.get<any>(environment.apiURL + 'tools/all');
   }
 
   public getTool(id: number): Observable<any> {
-    return this.http.get<any>('http://localhost:8000/api/tools/' + id);
+    return this.http.get<any>(environment.apiURL + 'tools/' + id);
   }
 
   public saveTool(data: ToolsComponent): Observable<any> {
-    return this.http.post<any>('http://localhost:8000/api/tools/save', data);
+    return this.http.post<any>(environment.apiURL + 'tools/save', data);
   }
 
   public updateTool(data: ToolsComponent): Observable<any> {
-    return this.http.post<any>('http://localhost:8000/api/tools/update', data);
+    return this.http.post<any>(environment.apiURL + 'tools/update', data);
   }
 }

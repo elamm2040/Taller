@@ -1,3 +1,4 @@
+import {environment} from "../../../../environments/environment";
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
@@ -12,22 +13,22 @@ export class CategoriesService {
   }
 
   public getAllCategories(): Observable<any> {
-    return this.http.get<any>('http://localhost:8000/api/categories/all');
+    return this.http.get<any>(environment.apiURL + 'categories/all');
   }
 
   public getChildrenCategories(id: any): Observable<any> {
-    return this.http.get<any>('http://localhost:8000/api/categories/children/' + id);
+    return this.http.get<any>(environment.apiURL + 'categories/children/' + id);
   }
 
   public getParentCategories(id: any): Observable<any> {
-    return this.http.get<any>('http://localhost:8000/api/categories/parent/' + id);
+    return this.http.get<any>(environment.apiURL + 'categories/parent/' + id);
   }
 
   public saveCategory(data: BreadcrumbCategoriesComponent): Observable<any> {
-    return this.http.post<any>('http://localhost:8000/api/categories/save', data);
+    return this.http.post<any>(environment.apiURL + 'categories/save', data);
   }
 
   public updateCategory(data: BreadcrumbCategoriesComponent): Observable<any> {
-    return this.http.post<any>('http://localhost:8000/api/categories/update', data);
+    return this.http.post<any>(environment.apiURL + 'categories/update', data);
   }
 }

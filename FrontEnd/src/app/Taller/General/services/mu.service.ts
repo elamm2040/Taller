@@ -1,3 +1,4 @@
+import {environment} from "../../../../environments/environment";
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
@@ -13,18 +14,18 @@ export class MUService {
   }
 
   public getAllMUs(): Observable<any> {
-    return this.http.get<any>('http://localhost:8000/api/mu/all');
+    return this.http.get<any>(environment.apiURL + 'mu/all');
   }
 
   public getMU(id: number): Observable<any> {
-    return this.http.get<any>('http://localhost:8000/api/mu/' + id);
+    return this.http.get<any>(environment.apiURL + 'mu/' + id);
   }
 
   public saveMUs(data: any): Observable<any> {
-    return this.http.post<any>('http://localhost:8000/api/mu/save', data);
+    return this.http.post<any>(environment.apiURL + 'mu/save', data);
   }
 
   public updateMU(data: EditMUComponent): Observable<any> {
-    return this.http.post<any>('http://localhost:8000/api/mu/update', data);
+    return this.http.post<any>(environment.apiURL + 'mu/update', data);
   }
 }

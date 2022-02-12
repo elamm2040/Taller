@@ -1,3 +1,4 @@
+import {environment} from "../../../../environments/environment";
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {RegisterComponent} from "../views/register/register.component";
@@ -12,15 +13,15 @@ export class SignService {
   }
 
   public signUp(register: RegisterComponent): Observable<any> {
-    return this.http.post<any>('http://localhost:8000/api/register', register);
+    return this.http.post<any>(environment.apiURL + 'register', register);
   }
 
   public signIn(signIn: RegisterComponent): Observable<any> {
-    return this.http.post<any>('http://localhost:8000/api/login', signIn);
+    return this.http.post<any>(environment.apiURL + 'login', signIn);
   }
 
   public signOut(signOut: any): Observable<any> {
-    return this.http.post<any>('http://localhost:8000/api/logout', signOut);
+    return this.http.post<any>(environment.apiURL + 'logout', signOut);
   }
 
   public stillIn(stillIn: any): Observable<any> {
@@ -30,6 +31,6 @@ export class SignService {
         'Authorization': `Bearer ${stillIn}`
       })
     }
-    return this.http.post<any>('http://localhost:8000/api/stillin', '', httpOptions);
+    return this.http.post<any>(environment.apiURL + 'stillin', '', httpOptions);
   }
 }
